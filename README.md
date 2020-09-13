@@ -52,24 +52,20 @@ into this file：
 ```
 
 3. You need to install sox 
--download sox from https://sourceforge.net/projects/sox/files/sox/
-
--extract in a directory, e.g. /home/<used_id>/tools/sox
-
--cd to /home/<used_id>/tools/sox
-
--./configure --prefix=/home/<used_id>/tools/sox
-
--make -s
-
--make install
-
--add in .bashrc:
+```
+    - download sox from https://sourceforge.net/projects/sox/files/sox/
+    - extract in a directory, e.g. /home/<used_id>/tools/sox
+    - cd to /home/<used_id>/tools/sox
+    - ./configure --prefix=/home/<used_id>/tools/sox
+    - make -s
+    - make install
+    - add in .bashrc:
+```
     
-    ```
-    LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/tools/sox/lib
-    PATH=$PATH:$HOME/tools/sox/bin
-    ```
+```
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/tools/sox/lib
+PATH=$PATH:$HOME/tools/sox/bin
+```
     
 4. Download the Kaldi
 
