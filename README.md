@@ -11,11 +11,13 @@ You definitely should run it on Sharc. If you run in local, you need to fix some
 If you meet the issues, you can email me with email :germany-tum@qq.com
 Because my email in UoS was already deleted.
 
-The tutorial to make Kaldi in HPC ShARC. So you can modify the progress because your hpc is another one.
+## The tutorial to make Kaldi in HPC ShARC. 
+So you can modify the progress because your hpc is another one.
 And sharc is my hpc's name. You can install Kaldi in Sharc but you have to do it in your own environment, and you have to do it in your /data directory.
 
 1. open an interactive session
 2. load module and create python env
+```
  - module load apps/python/conda
  - conda create -n xxxxx python=3.7
  - source activate xxxxx
@@ -25,7 +27,7 @@ And sharc is my hpc's name. You can install Kaldi in Sharc but you have to do it
  - module load libs/icu/58.2/gcc-4.9.4
  - PATH=$PATH:/usr/local/packages/libs/icu/58.2/gcc-4.9.4/bin
  - module load libs/intel-mkl/2019.3/binary 
-
+```
 I recommend to add this info in /home/<user_id>/.bashrc
 
 if [ $SGE_CLUSTER_NAME == "sharc" ]; then
