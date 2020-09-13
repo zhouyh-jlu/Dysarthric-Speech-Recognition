@@ -28,8 +28,8 @@ And sharc is my hpc's name. You can install Kaldi in Sharc but you have to do it
  - PATH=$PATH:/usr/local/packages/libs/icu/58.2/gcc-4.9.4/bin
  - module load libs/intel-mkl/2019.3/binary 
 ```
-I recommend to add this info in /home/<user_id>/.bashrc
-
+I recommend to add this info：
+```
 if [ $SGE_CLUSTER_NAME == "sharc" ]; then
 module load apps/python/conda
 source activate xxxxx
@@ -41,18 +41,20 @@ PATH=$PATH:/usr/local/packages/libs/icu/58.2/gcc-4.9.4/bin
 module load libs/intel-mkl/2019.3/binary 
 module load libs/libsndfile/1.0.28/gcc-4.9.4
 fi
-if [[ $SGE_CLUSTER_NAME == "iceberg" ]]; then
-whatever you need
-fi
+```
+into this file：
+```
+/home/<user_id>/.bashrc
+```
 
 3. You need to install sox 
- - download sox from https://sourceforge.net/projects/sox/files/sox/
- - extract in a directory, e.g. /home/<used_id>/tools/sox
- - cd to /home/<used_id>/tools/sox
- - ./configure --prefix=/home/<used_id>/tools/sox
- - make -s
- - make install
-- add in .bashrc
+    - download sox from https://sourceforge.net/projects/sox/files/sox/
+    - extract in a directory, e.g. /home/<used_id>/tools/sox
+    - cd to /home/<used_id>/tools/sox
+    - ./configure --prefix=/home/<used_id>/tools/sox
+    - make -s
+    - make install
+    - add in .bashrc
         LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/tools/sox/lib
         PATH=$PATH:$HOME/tools/sox/bin
 
