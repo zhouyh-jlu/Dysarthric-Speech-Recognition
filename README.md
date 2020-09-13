@@ -55,29 +55,37 @@ into this file：
     - make -s
     - make install
     - add in .bashrc
+    ```
         LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/tools/sox/lib
         PATH=$PATH:$HOME/tools/sox/bin
-
-3. cd /data/<user_id>
-4. git clone https://github.com/kaldi-asr/kaldi.git
+    ```
+4. Download the Kaldi
+    
+    cd /data/<user_id>
+    git clone https://github.com/kaldi-asr/kaldi.git
+    
 5. cd kaldi/tools
 6. make
 7  You will get a note that SRILM language model is not installed by default anymore.
- - download srilm package from http://www.speech.sri.com/projects/srilm/download.html.
- - Rename the package as “srilm.tgz”.
- - Copy the package to kaldi /tools
- - in kaldi/tools run ./install_srilm.sh
+    
+    - download srilm package from http://www.speech.sri.com/projects/srilm/download.html.
+    - Rename the package as “srilm.tgz”.
+    - Copy the package to kaldi /tools
+    - in kaldi/tools run ./install_srilm.sh
 
 8. cd /kaldi/src
 
 This is the most important progress to let your kaldi system can work on CUDA GPU!!!!
 
-9. ./configure --cudatk-dir=/usr/local/packages/libs/CUDA/9.0.176/binary/cuda --mkl-root=/usr/local/packages/dev/intel-ps-xe-ce/2019.3/binary/compilers_and_libraries_2019.3.199/linux/mkl
+9. 
+```
+./configure --cudatk-dir=/usr/local/packages/libs/CUDA/9.0.176/binary/cuda --mkl-root=/usr/local/packages/dev/intel-ps-xe-ce/2019.3/binary/compilers_and_libraries_2019.3.199/linux/mkl
+```
 10. make depend
 11 make
 
 After you finished the installation, you can add the following in the recipe
-
+```
 in file run.sh (adjust for your case)
 #!/bin/bash
 #$ -V
@@ -89,10 +97,10 @@ in file run.sh (adjust for your case)
 #$ -m bea
 #$ -M groadabike1@sheffield.ac.uk
 #$ -N DSing1_a
-
+```
 
 in cmd.sh
-
+```
 export train_cmd="run.pl"
 export decode_cmd="run.pl"
 if [[ "$SGE_CLUSTER_NAME" == "sharc"]]; then
@@ -100,18 +108,18 @@ if [[ "$SGE_CLUSTER_NAME" == "sharc"]]; then
     export decode_gmm="queue.pl -V --mem 10G -l h_rt=08:00:00"
     export decode_cmd="queue.pl -V --mem 8G -l h_rt=08:00:00"
 fi
-
+```
 in path.sh
-
+```
 export KALDI_ROOT=`pwd`/../../..
 [ -f $KALDI_ROOT/tools/env.sh ] && . $KALDI_ROOT/tools/env.sh
 export PATH=$PWD/utils/:$KALDI_ROOT/tools/openfst/bin:$PWD:$PATH
 [ ! -f $KALDI_ROOT/tools/config/common_path.sh ] && echo >&2 "The standard file $KALDI_ROOT/tools/config/common_path.sh is not present -> Exit!" && exit 1
 . $KALDI_ROOT/tools/config/common_path.sh
 export LC_ALL=C
-
+```
 in conf/queue.conf
-
+```
 command qsub -v PATH -cwd -S /bin/bash -j y -m a -M groadabike1@sheffield.ac.uk
 option mem=* -l rmem=$0 -j y
 option mem=0          # Do not add anything to qsub_opts
@@ -121,11 +129,11 @@ option max_jobs_run=* -tc $0
 default gpu=0
 option gpu=0
 option gpu=* -l gpu=$0 -P rse -q rse.q
+```
 
 I have an extra next run.sh, cmd.sh and path.sh file called
 setup_env.sh
-
-
+```
 if [[ "$SGE_CLUSTER_NAME" == "sharc"]]; then
     module load apps/python/conda
     module load libs/CUDA/9.0.176/binary
@@ -140,13 +148,13 @@ if [[ "$SGE_CLUSTER_NAME" == "sharc"]]; then
     PATH=$PATH:/home/acp13gr/apps/sox/bin
     source activate xxxx
 fi
-
+```
 xxxx is your Conda virtual environment's name
 and in run.sh i called
-
+```
 . ./path.sh || exit 1
 . ./cmd.sh || exit 1
 . ./setup_env.sh
-
+```
 
 Hope it helps.
