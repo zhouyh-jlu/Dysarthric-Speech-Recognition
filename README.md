@@ -8,14 +8,18 @@ This project is based on Kaldi. So you need to download and make kaldi firstly.
 This code can run in sharc.
 
 You definitely should run it on Sharc. If you run in local, you need to fix some problem.
+
 If you meet the issues, you can email me with email :germany-tum@qq.com
+
 Because my email in UoS was already deleted.
 
 ## The tutorial to make Kaldi in HPC ShARC. 
 So you can modify the progress because your hpc is another one.
+
 And sharc is my hpc's name. You can install Kaldi in Sharc but you have to do it in your own environment, and you have to do it in your /data directory.
 
 1. open an interactive session
+
 2. load module and create python env
 ```
  - module load apps/python/conda
@@ -54,18 +58,20 @@ into this file：
     - ./configure --prefix=/home/<used_id>/tools/sox
     - make -s
     - make install
-    - add in .bashrc
+    - add in .bashrc:
     ```
-        LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/tools/sox/lib
-        PATH=$PATH:$HOME/tools/sox/bin
+    LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/tools/sox/lib
+    PATH=$PATH:$HOME/tools/sox/bin
     ```
 4. Download the Kaldi
-    
+```
     cd /data/<user_id>
     git clone https://github.com/kaldi-asr/kaldi.git
-    
+```
 5. cd kaldi/tools
+
 6. make
+
 7  You will get a note that SRILM language model is not installed by default anymore.
     
     - download srilm package from http://www.speech.sri.com/projects/srilm/download.html.
@@ -75,13 +81,14 @@ into this file：
 
 8. cd /kaldi/src
 
-This is the most important progress to let your kaldi system can work on CUDA GPU!!!!
+#### This is the most important progress to let your kaldi system can work on CUDA GPU!!!!
 
 9. 
 ```
 ./configure --cudatk-dir=/usr/local/packages/libs/CUDA/9.0.176/binary/cuda --mkl-root=/usr/local/packages/dev/intel-ps-xe-ce/2019.3/binary/compilers_and_libraries_2019.3.199/linux/mkl
 ```
 10. make depend
+
 11 make
 
 After you finished the installation, you can add the following in the recipe
@@ -109,7 +116,9 @@ if [[ "$SGE_CLUSTER_NAME" == "sharc"]]; then
     export decode_cmd="queue.pl -V --mem 8G -l h_rt=08:00:00"
 fi
 ```
+
 in path.sh
+
 ```
 export KALDI_ROOT=`pwd`/../../..
 [ -f $KALDI_ROOT/tools/env.sh ] && . $KALDI_ROOT/tools/env.sh
@@ -118,7 +127,9 @@ export PATH=$PWD/utils/:$KALDI_ROOT/tools/openfst/bin:$PWD:$PATH
 . $KALDI_ROOT/tools/config/common_path.sh
 export LC_ALL=C
 ```
+
 in conf/queue.conf
+
 ```
 command qsub -v PATH -cwd -S /bin/bash -j y -m a -M groadabike1@sheffield.ac.uk
 option mem=* -l rmem=$0 -j y
@@ -132,7 +143,9 @@ option gpu=* -l gpu=$0 -P rse -q rse.q
 ```
 
 I have an extra next run.sh, cmd.sh and path.sh file called
+
 setup_env.sh
+
 ```
 if [[ "$SGE_CLUSTER_NAME" == "sharc"]]; then
     module load apps/python/conda
@@ -149,8 +162,11 @@ if [[ "$SGE_CLUSTER_NAME" == "sharc"]]; then
     source activate xxxx
 fi
 ```
+
 xxxx is your Conda virtual environment's name
+
 and in run.sh i called
+
 ```
 . ./path.sh || exit 1
 . ./cmd.sh || exit 1
