@@ -5,8 +5,9 @@ import numpy as np
 #set the index of data and transfer to the pd 
 df = pd.read_excel('local/speaker_data.xlsx', index=['id'])
 dic = df.set_index('id').T.to_dict('list')
-
-audio_dir = '/data/act19yz/kaldi/egs/ADSR/audio'
+#changing the location of your audio folder
+#I save it in the HPC
+audio_dir = '/data/username/kaldi/egs/ADSR/audio'
 
 audio_kind = 'mix'  #if audio_kind = ctlall is means the control data to be training data, and ctl data to be testing data
 #if audio_kind =ctl is means the control data as training data and dysarthric speech data to be testing data
