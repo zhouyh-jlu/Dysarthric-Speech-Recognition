@@ -9,7 +9,7 @@ This code can run in sharc.
 
 You definitely should run it on Sharc. If you run in local, you need to fix some problem.
 
-If you meet the issues, you can email me with email :germany-tum@qq.com
+If you meet the issues, you can email me with email germany-tum@qq.com
 
 Because my email in UoS was already deleted.
 
@@ -52,13 +52,15 @@ into this file：
 ```
 
 3. You need to install sox 
-    - download sox from https://sourceforge.net/projects/sox/files/sox/
-    - extract in a directory, e.g. /home/<used_id>/tools/sox
-    - cd to /home/<used_id>/tools/sox
-    - ./configure --prefix=/home/<used_id>/tools/sox
-    - make -s
-    - make install
-    - add in .bashrc:
+    
+    download sox from https://sourceforge.net/projects/sox/files/sox/
+    extract in a directory, e.g. /home/<used_id>/tools/sox
+    cd to /home/<used_id>/tools/sox
+    ./configure --prefix=/home/<used_id>/tools/sox
+    make -s
+    make install
+    add in .bashrc:
+    
     ```
     LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/tools/sox/lib
     PATH=$PATH:$HOME/tools/sox/bin
@@ -91,7 +93,8 @@ into this file：
 
 11 make
 
-After you finished the installation, you can add the following in the recipe
+    After you finished the installation, you can add the following in the recipe
+
 ```
 in file run.sh (adjust for your case)
 #!/bin/bash
@@ -106,7 +109,7 @@ in file run.sh (adjust for your case)
 #$ -N DSing1_a
 ```
 
-in cmd.sh
+    in cmd.sh
 ```
 export train_cmd="run.pl"
 export decode_cmd="run.pl"
@@ -128,7 +131,7 @@ export PATH=$PWD/utils/:$KALDI_ROOT/tools/openfst/bin:$PWD:$PATH
 export LC_ALL=C
 ```
 
-in conf/queue.conf
+    in conf/queue.conf
 
 ```
 command qsub -v PATH -cwd -S /bin/bash -j y -m a -M groadabike1@sheffield.ac.uk
@@ -142,9 +145,9 @@ option gpu=0
 option gpu=* -l gpu=$0 -P rse -q rse.q
 ```
 
-I have an extra next run.sh, cmd.sh and path.sh file called
+    I have an extra next run.sh, cmd.sh and path.sh file called
 
-setup_env.sh
+    setup_env.sh
 
 ```
 if [[ "$SGE_CLUSTER_NAME" == "sharc"]]; then
@@ -163,9 +166,9 @@ if [[ "$SGE_CLUSTER_NAME" == "sharc"]]; then
 fi
 ```
 
-xxxx is your Conda virtual environment's name
+    xxxx is your Conda virtual environment's name
 
-and in run.sh i called
+    and in run.sh i called
 
 ```
 . ./path.sh || exit 1
