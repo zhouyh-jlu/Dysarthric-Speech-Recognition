@@ -59,8 +59,9 @@ into this file：
     - ./configure --prefix=/home/<used_id>/tools/sox
     - make -s
     - make install
-    - add in .bashrc:
+    
 ```
+- add in .bashrc:
     
 ```
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/tools/sox/lib
